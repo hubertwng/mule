@@ -6,15 +6,13 @@
  */
 package org.mule.runtime.module.deployment.impl.internal.artifact;
 
-import static org.mule.runtime.api.util.Preconditions.checkNotNull;
+import static org.mule.runtime.app.declaration.internal.utils.Preconditions.checkArgument;
+
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.config.ConfigurationBuilder;
 import org.mule.runtime.core.api.config.builders.AbstractConfigurationBuilder;
 import org.mule.runtime.core.api.extension.ExtensionManager;
-import org.mule.runtime.deployment.model.api.plugin.ArtifactPlugin;
 import org.mule.runtime.module.extension.api.manager.ExtensionManagerFactory;
-
-import java.util.List;
 
 /**
  * Implementation of {@link ConfigurationBuilder} that registers a {@link ExtensionManager}
@@ -23,23 +21,21 @@ import java.util.List;
  */
 public class ArtifactExtensionManagerConfigurationBuilder extends AbstractConfigurationBuilder {
 
-  public static final String META_INF_FOLDER = "META-INF";
-
-  private final List<ArtifactPlugin> artifactPlugins;
+  private final String[] configurationFiles;
   private final ExtensionManagerFactory extensionManagerFactory;
 
   /**
    * Creates an instance of the configuration builder.
    *
-   * @param artifactPlugins {@link List} of {@link ArtifactPlugin ArtifactPlugins} to be registered.
+   * @param configurationFiles the configuration files that make up for the artifact being deployed
    * @param extensionManagerFactory creates the extension manager for this artifact. Non null.
    */
-  public ArtifactExtensionManagerConfigurationBuilder(List<ArtifactPlugin> artifactPlugins,
+  public ArtifactExtensionManagerConfigurationBuilder(String[] configurationFiles,
                                                       ExtensionManagerFactory extensionManagerFactory) {
-    checkNotNull(artifactPlugins, "artifactPlugins cannot be null");
-    checkNotNull(extensionManagerFactory, "extensionManagerFactory cannot be null");
+    checkArgument(configurationFiles != null, "configurationFiles cannot be null");
+    checkArgument(extensionManagerFactory != null, "extensionManagerFactory cannot be null");
 
-    this.artifactPlugins = artifactPlugins;
+    this.configurationFiles = configurationFiles;
     this.extensionManagerFactory = extensionManagerFactory;
   }
 

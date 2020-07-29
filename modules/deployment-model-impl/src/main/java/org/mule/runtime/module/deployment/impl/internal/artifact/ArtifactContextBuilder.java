@@ -420,8 +420,7 @@ public class ArtifactContextBuilder {
 
         }
 
-        builders.add(new ArtifactExtensionManagerConfigurationBuilder(artifactPlugins,
-                                                                      extensionManagerFactory));
+        builders.add(new ArtifactExtensionManagerConfigurationBuilder(configurationFiles, extensionManagerFactory));
         builders.add(createConfigurationBuilderFromApplicationProperties());
         // TODO MULE-14289 (elrodro83) pass this object to the builder instead of looking it up here
         ArtifactConfigurationProcessor artifactConfigurationProcessor = ArtifactConfigurationProcessor.discover();
